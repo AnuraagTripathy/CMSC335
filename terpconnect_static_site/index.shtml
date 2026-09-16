@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Openings</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="info">
+        <strong>Name: </strong>Anuraag Tripathy<br>
+        <strong>Render Site: </strong><a href="https://anuraag-static-site.onrender.com" target="_blank">https://anuraag-static-site.onrender.com</a><br>
+        <strong>Last Modified: </strong><!--#echo var="LAST_MODIFIED" --><br>
+    </div>
+
+    <div id="page">
+        <header>
+            <h1>Chess Openings</h1>
+
+            <p id="tagline">A short guide to the first few moves of a chess game.</p>
+        </header>
+
+        <h2>Why Openings Matter</h2>
+
+        <p>
+            The opening is the part of the game where both players develop their pieces, fight for the
+            center and decide what kind of middlegame they want. Most of the time you are not trying to
+            win material in the first ten moves, you are trying to get a position you understand better
+            than your opponent does.
+        </p>
+
+        <p>
+            Openings are usually grouped into <strong>open games</strong>, <strong>closed games</strong>,
+            <strong>semi-open games</strong> and <strong>flank openings</strong>, depending on the first
+            moves played by White and Black.
+        </p>
+
+        <h2>Common Openings</h2>
+
+        <table>
+            <caption>Openings You Will See Over And Over</caption>
+
+            <thead>
+                <tr>
+                    <th>Opening</th>
+
+                    <th>First Moves</th>
+
+                    <th>Played By</th>
+
+                    <th>Style</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Italian Game</td>
+
+                    <td>1.e4 e5 2.Nf3 Nc6 3.Bc4</td>
+
+                    <td>White</td>
+
+                    <td>Classical</td>
+                </tr>
+
+                <tr>
+                    <td>Ruy Lopez</td>
+
+                    <td>1.e4 e5 2.Nf3 Nc6 3.Bb5</td>
+
+                    <td>White</td>
+
+                    <td>Positional</td>
+                </tr>
+
+                <tr>
+                    <td>Sicilian Defense</td>
+
+                    <td>1.e4 c5</td>
+
+                    <td>Black</td>
+
+                    <td>Sharp</td>
+                </tr>
+
+                <tr>
+                    <td>French Defense</td>
+
+                    <td>1.e4 e6</td>
+
+                    <td>Black</td>
+
+                    <td>Solid</td>
+                </tr>
+
+                <tr>
+                    <td>Caro-Kann</td>
+
+                    <td>1.e4 c6</td>
+
+                    <td>Black</td>
+
+                    <td>Solid</td>
+                </tr>
+
+                <tr>
+                    <td>Queen's Gambit</td>
+
+                    <td>1.d4 d5 2.c4</td>
+
+                    <td>White</td>
+
+                    <td>Positional</td>
+                </tr>
+
+                <tr>
+                    <td>King's Indian Defense</td>
+
+                    <td>1.d4 Nf6 2.c4 g6</td>
+
+                    <td>Black</td>
+
+                    <td>Aggressive</td>
+                </tr>
+
+                <tr>
+                    <td>London System</td>
+
+                    <td>1.d4 d5 2.Bf4</td>
+
+                    <td>White</td>
+
+                    <td>Quiet</td>
+                </tr>
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <td colspan="4">Move order can change, the ideas behind each opening do not.</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <h2>Three Rules For The Opening</h2>
+
+        <ol>
+            <li>Control the center with your pawns and pieces.</li>
+
+            <li>Develop your knights and bishops before moving the same piece twice.</li>
+
+            <li>Castle early and connect your rooks.</li>
+        </ol>
+
+        <h2>Video</h2>
+
+        <p>
+            If you would rather watch than read, this video walks through the openings above and explains
+            the plans behind them.
+        </p>
+
+        <p>
+            <a href="https://www.youtube.com/watch?v=8IlJ3f1dGmY" target="_blank">Chess Openings Explained (YouTube)</a>
+        </p>
+
+        <h2>Where To Practice</h2>
+
+        <ul>
+            <li><a href="https://lichess.org/opening" target="_blank">Lichess Opening Explorer</a></li>
+
+            <li><a href="https://www.chess.com/openings" target="_blank">Chess.com Opening Library</a></li>
+        </ul>
+
+        <hr>
+
+        <p id="footer">Page by Anuraag Tripathy | CMSC335 | University of Maryland</p>
+    </div>
+</body>
+
+</html>
