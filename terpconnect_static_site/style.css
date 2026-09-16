@@ -1,0 +1,116 @@
+:root {
+    --board-dark: #2b2f3a;
+    --accent: #e2ba6e;
+    --text: #f2efe9;
+    --panel: rgba(20, 22, 30, 0.88);
+}
+
+body {
+    background-image: url("board.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    color: var(--text);
+    font-family: Verdana, Arial, sans-serif;
+    margin: 0;
+    padding: 1.5rem;
+}
+
+#info {
+    background-color: var(--panel);
+    border-left: 0.4rem solid var(--accent);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+#info a {
+    color: var(--accent);
+}
+
+#page {
+    background-color: var(--panel);
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 2rem;
+    border: 0.1rem solid var(--accent);
+}
+
+header {
+    text-align: center;
+    border-bottom: 0.1rem solid var(--accent);
+    padding-bottom: 1rem;
+}
+
+h1 {
+    font-family: Cinzel, serif;
+    font-size: 2.6rem;
+    letter-spacing: 0.2rem;
+    color: var(--accent);
+    margin: 0.5rem 0;
+}
+
+h2 {
+    font-family: Cinzel, serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+    margin-top: 2rem;
+}
+
+#tagline {
+    font-style: italic;
+}
+
+p, li {
+    line-height: 1.7;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+caption {
+    font-family: Cinzel, serif;
+    font-size: 1.2rem;
+    padding-bottom: 0.7rem;
+}
+
+th, td {
+    border: 0.1rem solid var(--board-dark);
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+}
+
+thead th {
+    background-color: var(--accent);
+    color: #1b1d24;
+}
+
+tbody tr:nth-child(2n) {
+    background-color: var(--board-dark);
+}
+
+tbody tr:nth-child(2n + 1) {
+    background-color: #3a3f4d;
+}
+
+tfoot td {
+    font-style: italic;
+    text-align: center;
+}
+
+a {
+    color: var(--accent);
+}
+
+hr {
+    border: none;
+    border-top: 0.1rem solid var(--accent);
+    margin-top: 2rem;
+}
+
+#footer {
+    text-align: center;
+    font-size: 0.85rem;
+}

@@ -1,0 +1,94 @@
+/* Do not remove this rule */
+
+html {
+    font-size: 14px;
+}
+
+body {
+    margin: 1.5rem;
+    background-color: antiquewhite;
+    
+    padding: 0.9rem;
+    border: 0.8rem double brown;
+}
+
+#page {
+    background-color: white;
+    border: 0.8rem ridge blue;
+    padding: 2.5rem 3rem;
+}
+
+header {
+    text-align: center;
+}
+
+#globe {
+    width: 6.5rem;
+
+}
+
+#deptName {
+    height: 4.5rem;
+    width: 35rem;
+
+}
+
+h1, h2 {
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+.brownText {
+    color: brown;
+
+}
+
+#intro::first-letter {
+    font-size: 3rem;
+}
+
+#intro:hover {
+    color: red;
+
+}
+
+a {
+    
+    color: blue;
+}
+
+caption {
+    
+    text-decoration: underline;
+    color: blue;
+    
+    font-style: italic;
+}
+
+table {
+    border: 0.1rem solid black;
+    padding: 0.2rem;
+
+    border-spacing: 0;
+}
+
+th, td {
+    border: 0.1rem solid black;
+    padding: 0.1rem 0.3rem;
+}
+
+th {
+    background-color: antiquewhite;
+    color: brown;
+}
+
+ul {
+    list-style-type: circle;
+}
