@@ -1,0 +1,236 @@
+1
+00:00:00,000 --> 00:00:04,272
+This one is a drawing question, worth 10 to 14 points: the prototype
+
+2
+00:00:04,372 --> 00:00:08,708
+diagram. The points are in the arrows, so let's build the diagram one
+
+3
+00:00:08,808 --> 00:00:12,116
+arrow at a time and talk about why each one is there.
+
+4
+00:00:14,200 --> 00:00:17,752
+Here's typical exam code. A constructor function Boat that
+
+5
+00:00:17,852 --> 00:00:20,775
+stores a name, a capacity property added to Boat
+
+6
+00:00:20,875 --> 00:00:23,484
+dot prototype, and two boats made with new.
+
+7
+00:00:23,566 --> 00:00:26,295
+You need to draw the function, its prototype
+
+8
+00:00:26,395 --> 00:00:30,216
+object, both instances, and every prototype, constructor, and
+
+9
+00:00:30,316 --> 00:00:32,466
+proto link, all the way up to null.
+
+10
+00:00:34,533 --> 00:00:38,139
+Start with Boat itself. Functions are objects too, and every
+
+11
+00:00:38,239 --> 00:00:42,463
+function automatically gets a property called prototype that points to
+
+12
+00:00:42,563 --> 00:00:46,232
+a separate object, Boat dot prototype. The capacity line puts
+
+13
+00:00:46,332 --> 00:00:48,641
+capacity on that object, not on a or b.
+
+14
+00:00:48,733 --> 00:00:51,987
+The prototype object has a constructor property that points
+
+15
+00:00:52,087 --> 00:00:54,090
+right back to Boat. So you get a pair
+
+16
+00:00:54,190 --> 00:00:57,273
+of arrows: prototype going out, constructor coming back.
+
+17
+00:00:57,366 --> 00:01:00,978
+Now the instances. new Boat makes a fresh object and runs
+
+18
+00:01:01,078 --> 00:01:04,365
+the constructor, so a and b each get their own name.
+
+19
+00:01:04,465 --> 00:01:08,077
+And new also sets each object's hidden proto link to Boat
+
+20
+00:01:08,177 --> 00:01:11,594
+dot prototype. That link is how they'll find capacity.
+
+21
+00:01:11,666 --> 00:01:15,545
+Don't stop there. Boat dot prototype is itself a plain object,
+
+22
+00:01:15,645 --> 00:01:19,715
+so its proto is Object dot prototype, where methods like toString
+
+23
+00:01:19,815 --> 00:01:23,694
+live. And Object dot prototype's proto is null. That's the end
+
+24
+00:01:23,794 --> 00:01:26,902
+of the chain, and the exam expects you to draw it.
+
+25
+00:01:28,000 --> 00:01:31,735
+Exam trap. Don't draw a prototype property or a capacity
+
+26
+00:01:31,835 --> 00:01:35,022
+inside a or b. Only the function has a prototype
+
+27
+00:01:35,122 --> 00:01:38,652
+property. Ordinary objects have a proto link instead.
+
+28
+00:01:40,733 --> 00:01:44,427
+Now, why does this matter? Property lookup. For a dot name,
+
+29
+00:01:44,527 --> 00:01:48,865
+JavaScript checks a first, finds name right there, and returns local.
+
+30
+00:01:50,933 --> 00:01:54,678
+For a dot capacity, it's not on a, so JavaScript follows
+
+31
+00:01:54,778 --> 00:01:58,249
+the proto arrow to Boat dot prototype, and finds 50.
+
+32
+00:02:00,333 --> 00:02:03,624
+a dot toString isn't on a or on Boat dot prototype,
+
+33
+00:02:03,724 --> 00:02:07,481
+so it keeps climbing and finds it on Object dot prototype.
+
+34
+00:02:09,566 --> 00:02:12,343
+And a dot wings walks the whole chain, hits
+
+35
+00:02:12,443 --> 00:02:16,090
+null, and gives undefined. Not an error, just undefined.
+
+36
+00:02:18,766 --> 00:02:22,809
+What if we assign a dot capacity equals 10? Assignment never
+
+37
+00:02:22,909 --> 00:02:26,399
+walks the chain. It creates a new own property on a,
+
+38
+00:02:26,499 --> 00:02:30,611
+which shadows the prototype's value. So a dot capacity is 10,
+
+39
+00:02:30,711 --> 00:02:33,234
+but b still finds 50 on the prototype.
+
+40
+00:02:33,333 --> 00:02:37,147
+And if we change the prototype's capacity to 75, every
+
+41
+00:02:37,247 --> 00:02:41,351
+object that doesn't shadow it sees the change instantly. b
+
+42
+00:02:41,451 --> 00:02:43,961
+now gives 75, while a still says 10.
+
+43
+00:02:47,033 --> 00:02:51,609
+Practice question 1. Draw the prototype diagram for this Lamp code. List
+
+44
+00:02:51,709 --> 00:02:55,117
+every box and every arrow. Pause the video and try it.
+
+45
+00:03:03,400 --> 00:03:08,023
+Five boxes: the Lamp function, Lamp dot prototype holding watts 60, x
+
+46
+00:03:08,123 --> 00:03:13,021
+holding its own color, Object dot prototype, and null. The arrows: Lamp's
+
+47
+00:03:13,121 --> 00:03:18,224
+prototype goes to Lamp dot prototype, whose constructor points back to Lamp.
+
+48
+00:03:18,324 --> 00:03:22,948
+x's proto goes to Lamp dot prototype. Then Lamp dot prototype's proto
+
+49
+00:03:23,048 --> 00:03:26,508
+goes to Object dot prototype, and that goes to null.
+
+50
+00:03:30,600 --> 00:03:34,820
+Practice question 2. What does this print? Pause the video and try it.
+
+51
+00:03:43,100 --> 00:03:46,678
+First line: 40 and 75. l1 has its own watts of
+
+52
+00:03:46,778 --> 00:03:51,955
+40, which shadows the prototype, and l2 sees the updated prototype
+
+53
+00:03:52,055 --> 00:03:56,833
+value of 75. After deleting l1's own watts, lookup falls back
+
+54
+00:03:56,933 --> 00:04:00,592
+to the prototype, so the second line prints 75.
+
+55
+00:04:04,666 --> 00:04:09,803
+Recap. The function's prototype arrow goes to its prototype object, and constructor
+
+56
+00:04:09,903 --> 00:04:14,157
+comes back. Each instance has a proto arrow to that prototype object,
+
+57
+00:04:14,257 --> 00:04:18,573
+which links to Object dot prototype, then null. Own properties live in
+
+58
+00:04:18,673 --> 00:04:22,801
+the instance box. And lookup simply walks the proto arrows until it
+
+59
+00:04:22,901 --> 00:04:26,334
+finds the property, or reaches null and gives undefined.
+

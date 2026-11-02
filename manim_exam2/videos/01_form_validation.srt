@@ -1,0 +1,388 @@
+1
+00:00:00,000 --> 00:00:04,260
+Hey! Let's start with the single biggest problem on Exam 2: a
+
+2
+00:00:04,360 --> 00:00:09,549
+form plus JavaScript validation. It's worth anywhere from 46 to 78 points,
+
+3
+00:00:09,649 --> 00:00:13,124
+so if you only master one thing, make it this one.
+
+4
+00:00:15,200 --> 00:00:19,828
+First, the HTML. The form tag's action says where the data goes,
+
+5
+00:00:19,928 --> 00:00:24,556
+here process dot PHP, and method equals post says how it's sent.
+
+6
+00:00:24,650 --> 00:00:27,911
+Each input gets two attributes that look alike but do
+
+7
+00:00:28,011 --> 00:00:31,462
+different jobs. The name is the key the server receives.
+
+8
+00:00:31,562 --> 00:00:35,014
+The id is what your JavaScript uses with getElementById.
+
+9
+00:00:35,083 --> 00:00:38,406
+And value gives the field its starting text, so
+
+10
+00:00:38,506 --> 00:00:41,247
+the route box already says M D dash 95.
+
+11
+00:00:41,316 --> 00:00:44,052
+Now the buttons. A plain button tag with no
+
+12
+00:00:44,152 --> 00:00:47,152
+type is a submit button by default. Type equals
+
+13
+00:00:47,252 --> 00:00:50,384
+reset clears the form back to its default values.
+
+14
+00:00:50,483 --> 00:00:54,703
+Finally, the script hooks our validation function to the submit event.
+
+15
+00:00:55,083 --> 00:00:58,820
+Exam trap. A button with no type attribute submits the form.
+
+16
+00:00:58,920 --> 00:01:02,145
+If you want it to clear, write type equals reset. If
+
+17
+00:01:02,245 --> 00:01:05,471
+you want it to do neither, write type equals button.
+
+18
+00:01:08,550 --> 00:01:11,551
+Look closely at this line. We assign the function
+
+19
+00:01:11,651 --> 00:01:15,223
+itself to window dot onsubmit. No parentheses. The browser
+
+20
+00:01:15,323 --> 00:01:17,882
+will call it for us when the user submits.
+
+21
+00:01:17,950 --> 00:01:21,660
+Inside, the return value is the whole game. Return false,
+
+22
+00:01:21,760 --> 00:01:25,338
+and the submission is blocked. The page just stays put.
+
+23
+00:01:25,416 --> 00:01:28,988
+Return true, and the form is sent to the action URL.
+
+24
+00:01:29,383 --> 00:01:33,714
+Exam trap. If you write validateRequest with parentheses, the function
+
+25
+00:01:33,814 --> 00:01:37,196
+runs once, right when the page loads, and onsubmit gets
+
+26
+00:01:37,296 --> 00:01:40,995
+its return value instead of the function. That costs points.
+
+27
+00:01:44,083 --> 00:01:49,150
+Here's a problem written the way the exam writes them. Read the requirements
+
+28
+00:01:49,250 --> 00:01:54,046
+carefully, because every bullet is a check you'll be graded on. One: the
+
+29
+00:01:54,146 --> 00:01:58,193
+name can't be blank, and a name made of only spaces counts as
+
+30
+00:01:58,293 --> 00:02:02,205
+blank. Two: the route is a state, a dash, and a number. The
+
+31
+00:02:02,305 --> 00:02:05,944
+state must be M D or V A in any capitalization, and the
+
+32
+00:02:06,044 --> 00:02:10,432
+number must be between 1 and 999. Three: show one alert that lists
+
+33
+00:02:10,532 --> 00:02:15,463
+every error, not one alert per error. And four: if everything's valid, ask
+
+34
+00:02:15,563 --> 00:02:18,999
+the user to confirm, and only send if they click OK.
+
+35
+00:02:22,083 --> 00:02:25,863
+Step one. We start with an empty error string. The plan is to
+
+36
+00:02:25,963 --> 00:02:29,807
+collect every problem in here, and only alert once at the end.
+
+37
+00:02:29,900 --> 00:02:33,670
+Then we read the name field's value. Remember, dot value
+
+38
+00:02:33,770 --> 00:02:37,264
+is always a string, even when the user typed digits.
+
+39
+00:02:37,333 --> 00:02:41,832
+We trim it, which removes spaces from both ends, and compare it to
+
+40
+00:02:41,932 --> 00:02:45,873
+the empty string. If it's blank, we tack on, bar, No name.
+
+41
+00:02:46,266 --> 00:02:50,174
+Exam trap. Comparing the name to an empty string without
+
+42
+00:02:50,274 --> 00:02:54,110
+trim misses an input of just spaces. Always trim first.
+
+43
+00:02:57,200 --> 00:03:00,546
+Step two, the route. Split on the dash turns M
+
+44
+00:03:00,646 --> 00:03:03,767
+D dash 95 into an array of two strings, and
+
+45
+00:03:03,867 --> 00:03:08,188
+array destructuring drops them straight into state and num.
+
+46
+00:03:08,275 --> 00:03:13,104
+We trim the state and lowercase it. That way capital M D, lowercase
+
+47
+00:03:13,204 --> 00:03:17,151
+m d, and mixed case all compare equal to lowercase m d.
+
+48
+00:03:17,241 --> 00:03:22,773
+If it's neither m d nor v a, add, Invalid state. Notice it's AND here:
+
+49
+00:03:22,873 --> 00:03:27,197
+the state is bad only if it's not m d and also not v a.
+
+50
+00:03:27,275 --> 00:03:31,732
+For the number, convert with Number. Then check isNaN first, and
+
+51
+00:03:31,832 --> 00:03:35,791
+then the range. If any of those fail, add, Invalid route.
+
+52
+00:03:36,175 --> 00:03:40,124
+A few Number facts worth memorizing. Number of an empty string
+
+53
+00:03:40,224 --> 00:03:44,174
+is zero, which the less than one check catches. Number ignores
+
+54
+00:03:44,274 --> 00:03:47,898
+surrounding spaces. And if the user typed no dash at all,
+
+55
+00:03:47,998 --> 00:03:51,099
+num is undefined, and Number of undefined is NaN.
+
+56
+00:03:54,175 --> 00:03:57,525
+Step three. If the error string isn't empty, show it
+
+57
+00:03:57,625 --> 00:04:00,843
+in one alert and return false, so nothing is sent.
+
+58
+00:04:00,941 --> 00:04:06,109
+Otherwise, build the confirmation message and return whatever window dot confirm
+
+59
+00:04:06,209 --> 00:04:10,125
+returns. Confirm gives true when the user clicks OK and false
+
+60
+00:04:10,225 --> 00:04:13,681
+for Cancel, which is exactly the value onsubmit needs.
+
+61
+00:04:14,075 --> 00:04:17,285
+Exam trap. You have to return the result of confirm. If
+
+62
+00:04:17,385 --> 00:04:21,800
+you just call confirm without returning it, the function returns undefined,
+
+63
+00:04:21,900 --> 00:04:25,111
+and the form gets sent even if the user clicked Cancel.
+
+64
+00:04:28,208 --> 00:04:31,896
+Let's run it. The user typed only spaces for the name,
+
+65
+00:04:31,996 --> 00:04:35,404
+and N Y dash 95 for the route, then clicks Submit.
+
+66
+00:04:35,475 --> 00:04:40,264
+Trimming the name gives an empty string, so we add No name. The
+
+67
+00:04:40,364 --> 00:04:43,601
+state is n y, which isn't m d or v a, so we
+
+68
+00:04:43,701 --> 00:04:48,335
+add Invalid state. And 95 is in range, so the number is fine.
+
+69
+00:04:48,408 --> 00:04:51,488
+So the user sees one alert with both errors, and
+
+70
+00:04:51,588 --> 00:04:54,404
+since we return false, the form is not sent.
+
+71
+00:04:57,475 --> 00:05:00,422
+Now a good one: Ann, and Md dash 95 with some
+
+72
+00:05:00,522 --> 00:05:04,485
+extra spaces. The trim and the lowercase take care of those,
+
+73
+00:05:04,585 --> 00:05:08,007
+so there are no errors, and the confirm box pops up.
+
+74
+00:05:08,075 --> 00:05:13,075
+Click OK, confirm returns true, and the form is posted to process dot
+
+75
+00:05:13,175 --> 00:05:18,103
+PHP. Click Cancel, it returns false, and the user stays on the page.
+
+76
+00:05:21,175 --> 00:05:25,888
+Practice question 1. A field with id room holds a building and a
+
+77
+00:05:25,988 --> 00:05:30,326
+room separated by a comma, like A V W comma 1112. Write the
+
+78
+00:05:30,426 --> 00:05:35,064
+two checks: the building can't be blank, and the room must be a
+
+79
+00:05:35,164 --> 00:05:39,051
+number from 1000 to 4999. Pause the video and try it.
+
+80
+00:05:47,341 --> 00:05:52,386
+Same pattern as before, just splitting on a comma. Destructure into building and
+
+81
+00:05:52,486 --> 00:05:57,273
+room. If the building is blank after trimming, add No building. Then convert
+
+82
+00:05:57,373 --> 00:06:01,003
+the room with Number, and if it's NaN or out of range, add
+
+83
+00:06:01,103 --> 00:06:04,861
+Invalid room. Notice that if the user types only I R B, room
+
+84
+00:06:04,961 --> 00:06:09,105
+is undefined, Number makes it NaN, and the check still catches it.
+
+85
+00:06:13,175 --> 00:06:17,174
+Practice question 2. The user forgets the dash and types M D
+
+86
+00:06:17,274 --> 00:06:21,889
+95, with a valid name. Using our validateRequest, what does the alert
+
+87
+00:06:21,989 --> 00:06:25,579
+say, and is the form sent? Pause the video and try it.
+
+88
+00:06:33,875 --> 00:06:38,803
+Splitting on a dash that isn't there gives a one-element array. So state
+
+89
+00:06:38,903 --> 00:06:42,924
+is the whole string, m d 95, which is an invalid state. And
+
+90
+00:06:43,024 --> 00:06:47,743
+num is undefined, so Number gives NaN, which is an invalid route. The
+
+91
+00:06:47,843 --> 00:06:52,423
+alert shows both errors, we return false, and the form is not sent.
+
+92
+00:06:56,508 --> 00:07:00,290
+To recap. Hook it up with window dot onsubmit equals the
+
+93
+00:07:00,390 --> 00:07:05,489
+function, no parentheses. Read each value, then split, trim, lowercase, and
+
+94
+00:07:05,589 --> 00:07:09,648
+convert with Number. Check isNaN and the range, and add each
+
+95
+00:07:09,748 --> 00:07:13,738
+problem to one error string. If there are errors, one alert
+
+96
+00:07:13,838 --> 00:07:18,590
+and return false. Otherwise, return window dot confirm. Nail this, and
+
+97
+00:07:18,690 --> 00:07:21,848
+you've locked in the biggest chunk of the exam.
+
