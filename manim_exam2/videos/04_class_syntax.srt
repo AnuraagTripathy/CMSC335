@@ -1,0 +1,384 @@
+1
+00:00:00,000 --> 00:00:03,264
+Now the class keyword. This problem is worth 34 to
+
+2
+00:00:03,364 --> 00:00:06,830
+40 points, and it checks a specific list of features:
+
+3
+00:00:06,930 --> 00:00:12,212
+private fields, a static counter, getters and setters, toPrimitive, inheritance,
+
+4
+00:00:12,312 --> 00:00:15,308
+and custom errors. Let's go through every one.
+
+5
+00:00:17,400 --> 00:00:20,688
+Here's a Bike class. A static field belongs to the class
+
+6
+00:00:20,788 --> 00:00:23,775
+itself, not to each bike. We'll use it to count how
+
+7
+00:00:23,875 --> 00:00:27,164
+many bikes were created. The hash sign makes it private.
+
+8
+00:00:27,233 --> 00:00:31,023
+These two are private instance fields. The hash is part of the name,
+
+9
+00:00:31,123 --> 00:00:34,513
+and you have to declare them in the class body before you use
+
+10
+00:00:34,613 --> 00:00:37,717
+them. Only code inside the class can read or write them.
+
+11
+00:00:37,800 --> 00:00:40,810
+The constructor takes default parameters, just like a
+
+12
+00:00:40,910 --> 00:00:43,628
+function, and stores them in the private fields.
+
+13
+00:00:43,700 --> 00:00:46,658
+Then it bumps the counter. Notice it's Bike dot hash
+
+14
+00:00:46,758 --> 00:00:49,657
+total, not this dot hash total. Statics live on the
+
+15
+00:00:49,757 --> 00:00:52,480
+class, so you reach them through the class name.
+
+16
+00:00:52,866 --> 00:00:57,331
+Exam trap. Trying to read b dot hash color from outside the class is
+
+17
+00:00:57,431 --> 00:01:02,030
+a syntax error. If outside code needs the value, you provide a getter.
+
+18
+00:01:05,100 --> 00:01:07,786
+A getter looks like a method with get in front,
+
+19
+00:01:07,886 --> 00:01:10,869
+but you use it like a property, with no parentheses.
+
+20
+00:01:10,969 --> 00:01:13,952
+b dot color runs this and returns the private color.
+
+21
+00:01:14,033 --> 00:01:18,016
+A setter runs when you assign. b dot price equals 300 calls
+
+22
+00:01:18,116 --> 00:01:22,515
+this with p equal to 300. The exam almost always wants validation
+
+23
+00:01:22,615 --> 00:01:27,637
+here: only store the value if it's positive. Otherwise, quietly ignore it.
+
+24
+00:01:27,733 --> 00:01:30,254
+A static method is called on the class,
+
+25
+00:01:30,354 --> 00:01:32,673
+Bike dot getTotal, not on an object.
+
+26
+00:01:32,766 --> 00:01:35,985
+And returning this from a method lets you chain calls,
+
+27
+00:01:36,085 --> 00:01:39,242
+like paint blue, then paint green, in one expression.
+
+28
+00:01:41,633 --> 00:01:45,238
+This is the course's version of Java's toString. The method's
+
+29
+00:01:45,338 --> 00:01:48,579
+name is the symbol Symbol dot toPrimitive, which is why
+
+30
+00:01:48,679 --> 00:01:51,920
+it's in square brackets. Whenever the object is used in
+
+31
+00:01:52,020 --> 00:01:55,261
+a template literal or with plus, JavaScript calls this.
+
+32
+00:01:55,333 --> 00:01:57,919
+The double dollar sign is just a literal dollar
+
+33
+00:01:58,019 --> 00:02:01,233
+sign, followed by the dollar-brace that inserts the price.
+
+34
+00:02:01,333 --> 00:02:04,045
+Now let's use it. We make a red bike for
+
+35
+00:02:04,145 --> 00:02:07,209
+250, then try to set the price to negative 5.
+
+36
+00:02:07,300 --> 00:02:10,140
+Then a valid price, two chained paints, and print
+
+37
+00:02:10,240 --> 00:02:12,720
+again with the getter and the static count.
+
+38
+00:02:13,100 --> 00:02:16,890
+The negative price was rejected by the setter, so it still
+
+39
+00:02:16,990 --> 00:02:20,513
+says 250. After the update and the chain, it's a green
+
+40
+00:02:20,613 --> 00:02:23,800
+bike for 300, and exactly one bike has been made.
+
+41
+00:02:26,900 --> 00:02:30,580
+Two classic output questions. Bike has a setter for price, but
+
+42
+00:02:30,680 --> 00:02:33,568
+no getter. So what does reading b dot price give?
+
+43
+00:02:33,666 --> 00:02:35,887
+And color has a getter but no setter. So
+
+44
+00:02:35,987 --> 00:02:38,150
+what happens when we assign pink to it?
+
+45
+00:02:38,533 --> 00:02:42,922
+Reading price gives undefined, because there's no getter to run. And the
+
+46
+00:02:43,022 --> 00:02:47,162
+assignment to color is ignored, so it's still green. In strict mode,
+
+47
+00:02:47,262 --> 00:02:51,153
+or in a module, that assignment would throw a TypeError instead.
+
+48
+00:02:52,233 --> 00:02:55,121
+Exam trap. A setter with no getter reads as
+
+49
+00:02:55,221 --> 00:02:58,805
+undefined. A getter with no setter can't be assigned.
+
+50
+00:03:01,900 --> 00:03:06,576
+Inheritance: EBike extends Bike and adds its own private range.
+
+51
+00:03:06,666 --> 00:03:10,300
+In the child's constructor, call super first. super runs the
+
+52
+00:03:10,400 --> 00:03:14,033
+parent constructor, which sets color and price and bumps the
+
+53
+00:03:14,133 --> 00:03:16,646
+counter. Only after that can you use this.
+
+54
+00:03:16,733 --> 00:03:19,816
+To override a method and still reuse the parent's
+
+55
+00:03:19,916 --> 00:03:23,455
+version, call super dot info. Bike's info returns color,
+
+56
+00:03:23,555 --> 00:03:25,729
+then bike, and we append the range.
+
+57
+00:03:25,800 --> 00:03:28,004
+Then we make a white e-bike and print it.
+
+58
+00:03:28,400 --> 00:03:32,138
+The override works. toPrimitive is inherited, so the template
+
+59
+00:03:32,238 --> 00:03:35,159
+literal still prints nicely. And the total is 2,
+
+60
+00:03:35,259 --> 00:03:38,620
+because the e-bike went through Bike's constructor too.
+
+61
+00:03:39,700 --> 00:03:42,902
+Exam trap. Touching this before calling super throws a
+
+62
+00:03:43,002 --> 00:03:46,388
+ReferenceError. And a child class can't read the parent's
+
+63
+00:03:46,488 --> 00:03:49,445
+private hash fields, which is why EBike uses super
+
+64
+00:03:49,545 --> 00:03:52,320
+dot info instead of reading the color directly.
+
+65
+00:03:55,400 --> 00:03:58,815
+Older exams also ask for a custom error. Extend Error,
+
+66
+00:03:58,915 --> 00:04:02,200
+pass the message to super, which sets e dot message,
+
+67
+00:04:02,300 --> 00:04:04,804
+and set this dot name to the class name.
+
+68
+00:04:04,900 --> 00:04:07,536
+Then throw it when a value is out of range.
+
+69
+00:04:07,633 --> 00:04:11,650
+In the try block, the first call works. The second call throws,
+
+70
+00:04:11,750 --> 00:04:15,309
+so the line after it never runs. Control jumps to catch.
+
+71
+00:04:15,400 --> 00:04:17,879
+Catch prints the name and the message, and
+
+72
+00:04:17,979 --> 00:04:21,012
+checks instanceof. And finally runs no matter what.
+
+73
+00:04:21,400 --> 00:04:25,080
+So we get 20, then DataRangeError colon Speed 45 out of
+
+74
+00:04:25,180 --> 00:04:29,547
+range, then true true, because the error is both a DataRangeError
+
+75
+00:04:29,647 --> 00:04:33,396
+and an Error, and finally, done. Never is never printed.
+
+76
+00:04:36,466 --> 00:04:40,915
+Practice question 1. Write a Ticket class with a private seat, a private
+
+77
+00:04:41,015 --> 00:04:45,148
+static count, a constructor with default seat G A and price 20 that
+
+78
+00:04:45,248 --> 00:04:49,760
+bumps the count, a seat getter, a price setter that only accepts positive
+
+79
+00:04:49,860 --> 00:04:54,752
+values, a static getCount, and toPrimitive so the template literal gives Seat G
+
+80
+00:04:54,852 --> 00:04:57,342
+A, dollar 20. Pause the video and try it.
+
+81
+00:05:05,633 --> 00:05:09,813
+Declare the static count and the private fields first. The constructor
+
+82
+00:05:09,913 --> 00:05:13,482
+stores both values and does Ticket dot hash count plus plus.
+
+83
+00:05:13,582 --> 00:05:17,211
+The getter returns the seat. The setter checks p greater than
+
+84
+00:05:17,311 --> 00:05:21,920
+zero before storing. getCount is static. And toPrimitive returns the template
+
+85
+00:05:22,020 --> 00:05:25,405
+string, with a double dollar sign for the literal dollar.
+
+86
+00:05:29,500 --> 00:05:33,643
+Practice question 2. Using that Ticket class, which has only a getter
+
+87
+00:05:33,743 --> 00:05:37,272
+for seat, what does this print? Pause the video and try it.
+
+88
+00:05:45,566 --> 00:05:48,883
+G A, B 12, and 2. Assigning A 1 to t1 dot seat
+
+89
+00:05:48,983 --> 00:05:54,007
+does nothing, because there's no setter, so t1 keeps the default G A.
+
+90
+00:05:54,107 --> 00:05:58,018
+And the static count went up once for each new Ticket.
+
+91
+00:06:02,100 --> 00:06:05,840
+Recap. Private fields with a hash, a static counter bumped with
+
+92
+00:06:05,940 --> 00:06:10,168
+the class name in the constructor, getters and setters with validation,
+
+93
+00:06:10,268 --> 00:06:14,680
+static methods, and return this for chaining. Symbol dot toPrimitive makes
+
+94
+00:06:14,780 --> 00:06:19,252
+template literals print your object. For inheritance, call super first, and
+
+95
+00:06:19,352 --> 00:06:22,849
+use super dot method to reuse the parent. And custom errors
+
+96
+00:06:22,949 --> 00:06:24,800
+extend Error and set their name.
+

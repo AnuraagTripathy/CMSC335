@@ -1,0 +1,228 @@
+1
+00:00:00,000 --> 00:00:03,209
+Currying, closures, and I I F Es. Some version of
+
+2
+00:00:03,309 --> 00:00:06,519
+these shows up on every single exam, usually as a
+
+3
+00:00:06,619 --> 00:00:11,180
+short rewrite question. They're quick points once the pattern clicks.
+
+4
+00:00:13,266 --> 00:00:17,678
+Here's a normal function of three arguments: a times b minus c.
+
+5
+00:00:17,766 --> 00:00:22,762
+Currying means splitting those arguments across separate calls. For the shape
+
+6
+00:00:22,862 --> 00:00:26,005
+a comma b, then c, the outer function takes a and
+
+7
+00:00:26,105 --> 00:00:28,850
+b, and returns a new function that takes c.
+
+8
+00:00:28,933 --> 00:00:32,201
+The trick: count the sets of parentheses in the call.
+
+9
+00:00:32,301 --> 00:00:35,505
+Each set is one level of function in the definition.
+
+10
+00:00:35,600 --> 00:00:39,634
+For the shape a, then b comma c, the arrow version is
+
+11
+00:00:39,734 --> 00:00:44,236
+very compact. a arrow, b comma c arrow, and the expression.
+
+12
+00:00:44,333 --> 00:00:47,809
+Let's call all three with 2, 5, and 3.
+
+13
+00:00:48,200 --> 00:00:52,108
+All three give 7. Same math, different call shapes.
+
+14
+00:00:55,200 --> 00:01:00,888
+Why does currying work? Closures. When getValueCurried returns the inner function,
+
+15
+00:01:00,988 --> 00:01:04,842
+that inner function keeps a and b alive, even though the
+
+16
+00:01:04,942 --> 00:01:08,372
+outer call is over. So tenMinus remembers 2 and 5.
+
+17
+00:01:08,466 --> 00:01:11,779
+A classic closure example: makeCounter keeps a private
+
+18
+00:01:11,879 --> 00:01:14,750
+count, and returns an arrow that increments it.
+
+19
+00:01:14,833 --> 00:01:17,877
+We make two counters, and call them in a mixed order.
+
+20
+00:01:18,266 --> 00:01:24,166
+tenMinus gives 9 and 6. And the counters print 1, 2, 1, 3.
+
+21
+00:01:25,266 --> 00:01:29,384
+Exam trap. c1 and c2 do not share a count. Every call to
+
+22
+00:01:29,484 --> 00:01:34,430
+makeCounter creates a fresh count variable, so c2 starts over at 1.
+
+23
+00:01:37,500 --> 00:01:41,124
+An I I F E is an immediately invoked function expression.
+
+24
+00:01:41,224 --> 00:01:44,521
+The exam gives you a named function and a call, like
+
+25
+00:01:44,621 --> 00:01:47,984
+this, and asks you to rewrite them as one expression.
+
+26
+00:01:48,066 --> 00:01:52,568
+Wrap the function in parentheses, then call it right away with another
+
+27
+00:01:52,668 --> 00:01:56,644
+set of parentheses. The argument, 3, goes in that last set. It
+
+28
+00:01:56,744 --> 00:02:01,574
+runs once, immediately, and its variables don't leak into the global scope.
+
+29
+00:02:01,966 --> 00:02:05,034
+Both versions print 2, 4, 6.
+
+30
+00:02:06,133 --> 00:02:08,728
+Exam trap. If you leave off the parentheses
+
+31
+00:02:08,828 --> 00:02:11,673
+around the arrow function, it's a syntax error.
+
+32
+00:02:14,766 --> 00:02:18,002
+The classic function keyword version works the same way.
+
+33
+00:02:18,100 --> 00:02:20,736
+And here's the arrow version on a single line.
+
+34
+00:02:20,833 --> 00:02:23,739
+The async I I F E is worth memorizing. await is
+
+35
+00:02:23,839 --> 00:02:27,513
+only allowed inside an async function, so you wrap the code
+
+36
+00:02:27,613 --> 00:02:31,415
+in an async arrow function and call it immediately. That lets
+
+37
+00:02:31,515 --> 00:02:34,677
+you write await fetch at the top level of a script.
+
+38
+00:02:35,066 --> 00:02:38,158
+The first two each print a b three times.
+
+39
+00:02:41,233 --> 00:02:45,214
+Practice question 1. Given a volume function of length, width, and
+
+40
+00:02:45,314 --> 00:02:48,987
+height, write volumeA so you call it with three separate sets
+
+41
+00:02:49,087 --> 00:02:52,574
+of parentheses, and volumeB so you call it with length and
+
+42
+00:02:52,674 --> 00:02:56,037
+width together, then height. Pause the video and try it.
+
+43
+00:03:04,333 --> 00:03:10,364
+volumeA has three levels, so three arrows: l arrow w arrow h arrow the
+
+44
+00:03:10,464 --> 00:03:17,196
+product. volumeB has two levels: the outer function takes l and w, and returns
+
+45
+00:03:17,296 --> 00:03:21,225
+a function of h. Both give 24 for 2, 3, and 4.
+
+46
+00:03:25,300 --> 00:03:29,187
+Practice question 2. Rewrite greet and its call as a single
+
+47
+00:03:29,287 --> 00:03:32,431
+arrow function I I F E, with no name. Then, what
+
+48
+00:03:32,531 --> 00:03:36,216
+does the bank closure print? Pause the video and try it.
+
+49
+00:03:44,500 --> 00:03:49,043
+Wrap an arrow that takes name in parentheses, and call it right away
+
+50
+00:03:49,143 --> 00:03:52,800
+with Terp. For the bank: 10 plus 5 gives 15, a new bank
+
+51
+00:03:52,900 --> 00:03:57,785
+starting at 0 gives 0, and acct dot balance is undefined, because balance
+
+52
+00:03:57,885 --> 00:04:02,088
+is a variable inside the closure, not a property of the object.
+
+53
+00:04:06,166 --> 00:04:10,173
+Recap. Curried calls like f of a b, then c, mean f returns
+
+54
+00:04:10,273 --> 00:04:15,129
+a function of c. Closures keep the outer variables alive, with a fresh
+
+55
+00:04:15,229 --> 00:04:18,669
+copy for each outer call. An I I F E is a function
+
+56
+00:04:18,769 --> 00:04:23,272
+wrapped in parentheses and called right away. And the async I I F
+
+57
+00:04:23,372 --> 00:04:25,962
+E lets you use await at the top level.
+

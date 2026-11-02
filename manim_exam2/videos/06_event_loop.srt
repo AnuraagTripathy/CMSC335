@@ -1,0 +1,264 @@
+1
+00:00:00,000 --> 00:00:02,819
+The event loop. This is where those, what order
+
+2
+00:00:02,919 --> 00:00:05,926
+does this print, questions come from. Once you see
+
+3
+00:00:06,026 --> 00:00:09,716
+the three places code waits, these puzzles become mechanical.
+
+4
+00:00:11,800 --> 00:00:15,232
+JavaScript runs one thing at a time, on the call stack.
+
+5
+00:00:15,332 --> 00:00:18,701
+Anything that has to wait goes into one of two queues.
+
+6
+00:00:18,801 --> 00:00:23,775
+The macrotask queue holds timer callbacks from setTimeout and setInterval, plus
+
+7
+00:00:23,875 --> 00:00:28,721
+events. The microtask queue holds promise reactions, like dot then callbacks,
+
+8
+00:00:28,821 --> 00:00:31,548
+and the code that runs after fetch resolves.
+
+9
+00:00:31,633 --> 00:00:35,484
+And here's the rule that decides every puzzle. First, the
+
+10
+00:00:35,584 --> 00:00:39,782
+whole script runs. Then every microtask runs, until that queue
+
+11
+00:00:39,882 --> 00:00:43,456
+is empty. Only then does the loop take one macrotask.
+
+12
+00:00:43,556 --> 00:00:46,437
+After it, all microtasks again, and repeat.
+
+13
+00:00:48,533 --> 00:00:52,084
+Puzzle one. On the left is the code, in the middle the call
+
+14
+00:00:52,184 --> 00:00:55,921
+stack and the two queues, and on the bottom left, the console.
+
+15
+00:00:56,000 --> 00:00:58,478
+The script goes on the call stack and runs
+
+16
+00:00:58,578 --> 00:01:01,180
+top to bottom. Line one logs Dog right away.
+
+17
+00:01:01,266 --> 00:01:05,866
+Line two is setTimeout with zero milliseconds. It doesn't run the callback.
+
+18
+00:01:05,966 --> 00:01:10,378
+It only registers it, and after zero milliseconds the callback goes into
+
+19
+00:01:10,478 --> 00:01:13,574
+the macrotask queue, where it has to wait its turn.
+
+20
+00:01:13,666 --> 00:01:16,886
+The script keeps going, and line three logs Lion. Now
+
+21
+00:01:16,986 --> 00:01:19,830
+the script is finished, and the stack is empty.
+
+22
+00:01:19,900 --> 00:01:22,653
+There are no microtasks, so the loop takes
+
+23
+00:01:22,753 --> 00:01:25,440
+the next macrotask, and finally logs Cat.
+
+24
+00:01:25,533 --> 00:01:29,060
+So the output is Dog, Lion, Cat. A zero millisecond
+
+25
+00:01:29,160 --> 00:01:33,257
+timeout still waits for all the synchronous code to finish.
+
+26
+00:01:37,333 --> 00:01:40,137
+Puzzle two mixes a promise with setTimeout.
+
+27
+00:01:40,233 --> 00:01:43,878
+Now let's mix in a promise. One is logged immediately. The
+
+28
+00:01:43,978 --> 00:01:48,269
+timeout's callback goes to the macrotask queue, exactly like before.
+
+29
+00:01:48,366 --> 00:01:51,686
+Promise dot resolve gives an already resolved promise, so
+
+30
+00:01:51,786 --> 00:01:55,106
+its then callback goes straight into the microtask queue.
+
+31
+00:01:55,200 --> 00:01:57,836
+Then four is logged, and the script is done.
+
+32
+00:01:57,933 --> 00:02:00,948
+Now the key rule. All microtasks run before the
+
+33
+00:02:01,048 --> 00:02:04,395
+next macrotask. So three prints next, and only after
+
+34
+00:02:04,495 --> 00:02:07,577
+that does the timer's callback get to print two.
+
+35
+00:02:07,666 --> 00:02:10,907
+One, four, three, two. Synchronous code
+
+36
+00:02:11,007 --> 00:02:14,334
+first, then microtasks, then macrotasks.
+
+37
+00:02:18,433 --> 00:02:22,205
+Here's a trap the exam has used. getCount declares count, and
+
+38
+00:02:22,305 --> 00:02:25,125
+sets up an interval that will set count to 10.
+
+39
+00:02:25,200 --> 00:02:28,106
+But the return happens right now, during the script.
+
+40
+00:02:28,206 --> 00:02:30,996
+The interval callback can't run until the stack is
+
+41
+00:02:31,096 --> 00:02:34,292
+empty, which is long after getCount has already returned.
+
+42
+00:02:34,666 --> 00:02:37,521
+So it prints undefined. The fix is to return a
+
+43
+00:02:37,621 --> 00:02:40,926
+promise and call resolve with 10 inside the callback.
+
+44
+00:02:42,000 --> 00:02:45,334
+Exam trap. A function can't return a value that only
+
+45
+00:02:45,434 --> 00:02:49,628
+gets assigned later, inside a setTimeout or setInterval callback.
+
+46
+00:02:52,700 --> 00:02:57,294
+setInterval runs its callback again and again, every given number
+
+47
+00:02:57,394 --> 00:03:00,616
+of milliseconds. It returns an id, so save it.
+
+48
+00:03:00,700 --> 00:03:03,336
+Each time, we bump n and log it.
+
+49
+00:03:03,433 --> 00:03:07,250
+When n hits 3, clearInterval with that id stops it.
+
+50
+00:03:07,350 --> 00:03:12,549
+setTimeout, by contrast, runs only once, and clearTimeout cancels it.
+
+51
+00:03:12,933 --> 00:03:18,113
+So we get 1, 2, and 3, one second apart, and then it stops.
+
+52
+00:03:21,200 --> 00:03:23,806
+Practice question 1. What does this print, in
+
+53
+00:03:23,906 --> 00:03:25,852
+order? Pause the video and try it.
+
+54
+00:03:34,133 --> 00:03:38,419
+E, B, D, A, C. E is the only synchronous log, so it's
+
+55
+00:03:38,519 --> 00:03:44,130
+first. Then the microtasks, in the order they were queued: B, then D.
+
+56
+00:03:44,230 --> 00:03:49,593
+While B ran, it queued another timer, C. Now the macrotasks run in
+
+57
+00:03:49,693 --> 00:03:54,145
+order: A was queued by the script, so it goes before C.
+
+58
+00:03:58,233 --> 00:04:02,411
+Practice question 2. Fix getCount so the caller can actually get the 10,
+
+59
+00:04:02,511 --> 00:04:05,501
+and show how to call it. Pause the video and try it.
+
+60
+00:04:13,800 --> 00:04:18,066
+Return a new Promise. Inside the interval callback, clear the interval
+
+61
+00:04:18,166 --> 00:04:21,434
+and call resolve with 10. The caller can't get a plain
+
+62
+00:04:21,534 --> 00:04:24,740
+value back, so it uses dot then to receive the count.
+
+63
+00:04:28,833 --> 00:04:33,357
+Recap. All the synchronous code runs first. Then all the microtasks,
+
+64
+00:04:33,457 --> 00:04:38,321
+meaning promise callbacks. Then one macrotask, like a timer callback, and
+
+65
+00:04:38,421 --> 00:04:42,537
+then microtasks again. And a value set inside a timer callback
+
+66
+00:04:42,637 --> 00:04:45,869
+can't be returned directly. Wrap it in a promise.
+

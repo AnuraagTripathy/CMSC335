@@ -1,0 +1,364 @@
+1
+00:00:00,000 --> 00:00:03,804
+Promises and fetch, without await. On the last exam this was a 30
+
+2
+00:00:03,904 --> 00:00:07,528
+point problem, and the twist is that you have to write it with
+
+3
+00:00:07,628 --> 00:00:11,252
+dot then instead of await. Let's make sure that feels natural.
+
+4
+00:00:13,352 --> 00:00:16,480
+A promise is an object that stands for a result that
+
+5
+00:00:16,580 --> 00:00:20,082
+isn't ready yet. You create one with new Promise, and pass
+
+6
+00:00:20,182 --> 00:00:23,932
+it a function that receives two callbacks, resolve and reject.
+
+7
+00:00:24,010 --> 00:00:27,023
+Every promise starts out pending. Calling resolve
+
+8
+00:00:27,123 --> 00:00:29,310
+moves it to fulfilled, with a value.
+
+9
+00:00:29,410 --> 00:00:32,622
+Calling reject moves it to rejected, with a reason.
+
+10
+00:00:32,710 --> 00:00:36,516
+And it settles only once. After the first resolve or reject,
+
+11
+00:00:36,616 --> 00:00:40,357
+any later calls are simply ignored. To react to the result,
+
+12
+00:00:40,457 --> 00:00:43,938
+you use dot then for success and dot catch for failure.
+
+13
+00:00:46,010 --> 00:00:49,562
+Here's a question the exam likes. This promise's function
+
+14
+00:00:49,662 --> 00:00:52,702
+runs and logs work done, but never calls resolve.
+
+15
+00:00:52,777 --> 00:00:55,965
+A little later we print the promise. What state is it in?
+
+16
+00:00:56,343 --> 00:00:59,483
+It's still pending. And it'll stay pending forever.
+
+17
+00:01:00,577 --> 00:01:04,221
+Exam trap. Doing the work doesn't settle a promise. The only
+
+18
+00:01:04,321 --> 00:01:07,965
+things that settle it are calling resolve or calling reject.
+
+19
+00:01:11,043 --> 00:01:15,163
+Here's the actual exam problem. getImageURL takes an index and a
+
+20
+00:01:15,263 --> 00:01:18,459
+JSON file name, and it has to return a promise. So
+
+21
+00:01:18,559 --> 00:01:21,887
+the very first thing we write is return new Promise.
+
+22
+00:01:21,985 --> 00:01:24,525
+Inside, we fetch the file. fetch itself
+
+23
+00:01:24,625 --> 00:01:27,165
+returns a promise of a response object.
+
+24
+00:01:27,252 --> 00:01:31,048
+Calling response dot json returns another promise, this time
+
+25
+00:01:31,148 --> 00:01:34,165
+of the parsed object. Returning it from the then
+
+26
+00:01:34,265 --> 00:01:37,088
+means the next then receives the parsed JSON.
+
+27
+00:01:37,185 --> 00:01:40,509
+Now the decision. If the index is past the end of the
+
+28
+00:01:40,609 --> 00:01:45,356
+urls array, call reject with Invalid Index. Otherwise, resolve with the URL
+
+29
+00:01:45,456 --> 00:01:49,297
+at that index. Those resolve and reject are the ones from our
+
+30
+00:01:49,397 --> 00:01:53,045
+outer new Promise, so they settle the promise we returned.
+
+31
+00:01:55,418 --> 00:02:00,299
+Using it looks like this. Index 1 is valid, so then receives the URL.
+
+32
+00:02:00,399 --> 00:02:04,918
+In a real page, you'd set an image's src to that URL right here.
+
+33
+00:02:04,993 --> 00:02:08,193
+Index 5 is past the end, so the promise rejects,
+
+34
+00:02:08,293 --> 00:02:11,493
+the then is skipped, and catch gets the message.
+
+35
+00:02:11,893 --> 00:02:15,037
+So we see b dot png, and Invalid Index. One honest
+
+36
+00:02:15,137 --> 00:02:18,930
+note: these are two separate fetches, so with a real network
+
+37
+00:02:19,030 --> 00:02:21,849
+the two lines could come out in either order.
+
+38
+00:02:22,927 --> 00:02:25,887
+Exam trap. Don't forget the word return in front
+
+39
+00:02:25,987 --> 00:02:29,648
+of new Promise. Without it, the function returns undefined,
+
+40
+00:02:29,748 --> 00:02:33,027
+and calling dot then on undefined throws a TypeError.
+
+41
+00:02:36,093 --> 00:02:40,325
+Two facts that show up in output questions. First, dot then itself
+
+42
+00:02:40,425 --> 00:02:45,182
+returns a new promise. Whatever the callback returns becomes the value for
+
+43
+00:02:45,282 --> 00:02:48,857
+the next then. Here 2 times 10 passes 20 down the chain.
+
+44
+00:02:48,943 --> 00:02:53,457
+Second, an async function always returns a promise, even if you return
+
+45
+00:02:53,557 --> 00:02:57,147
+a plain number. So logging f of nothing doesn't print 5.
+
+46
+00:02:57,243 --> 00:02:59,951
+To actually get the 5, you use dot then.
+
+47
+00:03:00,343 --> 00:03:03,764
+The first line is the promise object itself. Then 5,
+
+48
+00:03:03,864 --> 00:03:07,082
+and then 20. The 20 comes last because that chain
+
+49
+00:03:07,182 --> 00:03:10,467
+has two steps, and each step waits one extra turn.
+
+50
+00:03:13,543 --> 00:03:18,053
+For comparison, here's the same function with async and await. await pauses
+
+51
+00:03:18,153 --> 00:03:21,987
+this function until the promise settles and hands you the value.
+
+52
+00:03:22,060 --> 00:03:24,893
+Throwing inside an async function rejects its
+
+53
+00:03:24,993 --> 00:03:27,696
+promise, and returning a value fulfills it.
+
+54
+00:03:27,793 --> 00:03:30,885
+This version is shorter, but read the question. If it
+
+55
+00:03:30,985 --> 00:03:33,957
+says no await, you must write the dot then version.
+
+56
+00:03:34,327 --> 00:03:36,558
+Index 9 is too big, so the throw
+
+57
+00:03:36,658 --> 00:03:40,347
+rejects the promise, and catch prints Invalid Index.
+
+58
+00:03:43,427 --> 00:03:46,986
+Promise dot all takes an array of promises and waits for all
+
+59
+00:03:47,086 --> 00:03:50,340
+of them. The results come back as an array, in the same
+
+60
+00:03:50,440 --> 00:03:53,695
+order as the input, no matter which one finished first.
+
+61
+00:03:53,777 --> 00:03:55,873
+But if any one of them rejects, the
+
+62
+00:03:55,973 --> 00:03:58,573
+whole thing rejects, and you land in catch.
+
+63
+00:03:58,943 --> 00:04:02,091
+The first gives a dot png and c dot png,
+
+64
+00:04:02,191 --> 00:04:06,475
+in order. The second fails because index 7 is invalid.
+
+65
+00:04:09,543 --> 00:04:14,645
+Last pattern: turning a callback-style function, like setTimeout, into one
+
+66
+00:04:14,745 --> 00:04:18,371
+that returns a promise. Step one, return new Promise.
+
+67
+00:04:18,460 --> 00:04:22,623
+Step two, start the async task. Step three, inside that task's
+
+68
+00:04:22,723 --> 00:04:27,024
+callback, call resolve with the result, or reject with an error.
+
+69
+00:04:27,093 --> 00:04:29,489
+Now callers can use then and catch.
+
+70
+00:04:29,560 --> 00:04:31,727
+And the smallest version of this idea is
+
+71
+00:04:31,827 --> 00:04:34,788
+a wait function that resolves after some milliseconds.
+
+72
+00:04:35,160 --> 00:04:39,548
+After one second, 16 for the number, and Not a number for the string.
+
+73
+00:04:42,627 --> 00:04:47,521
+Practice question 1. Without await, write getTemperature, which takes a city and
+
+74
+00:04:47,621 --> 00:04:51,954
+a JSON file and returns a promise. Resolve with the city's temperature,
+
+75
+00:04:52,054 --> 00:04:55,576
+or reject with Unknown City if the city isn't in the file.
+
+76
+00:04:55,676 --> 00:04:58,823
+Then show how to use it. Pause the video and try it.
+
+77
+00:05:07,093 --> 00:05:11,396
+Same shape as getImageURL. Return new Promise, fetch the file,
+
+78
+00:05:11,496 --> 00:05:15,372
+convert with response dot json, and then decide. If json
+
+79
+00:05:15,472 --> 00:05:20,059
+of city is undefined, reject with Unknown City. Otherwise, resolve
+
+80
+00:05:20,159 --> 00:05:24,177
+with the temperature. Then the caller uses then and catch.
+
+81
+00:05:28,260 --> 00:05:30,908
+Practice question 2. What does this print, in
+
+82
+00:05:31,008 --> 00:05:32,984
+order? Pause the video and try it.
+
+83
+00:05:41,260 --> 00:05:45,185
+A, then D, then B 1. The function passed to new Promise
+
+84
+00:05:45,285 --> 00:05:50,307
+runs immediately, so A prints first. The promise settles once, with 1,
+
+85
+00:05:50,407 --> 00:05:55,064
+so reject 2 and resolve 3 are ignored. Then callbacks always wait
+
+86
+00:05:55,164 --> 00:05:59,016
+until the current code finishes, so D prints before B.
+
+87
+00:06:03,093 --> 00:06:07,601
+Recap. Return new Promise, with resolve and reject. Fetch, convert
+
+88
+00:06:07,701 --> 00:06:11,510
+with response dot json, then decide whether to reject or
+
+89
+00:06:11,610 --> 00:06:15,768
+resolve. Callers use then and catch. An async function always
+
+90
+00:06:15,868 --> 00:06:19,538
+returns a promise. And Promise dot all keeps the input
+
+91
+00:06:19,638 --> 00:06:22,889
+order, but fails as soon as one promise rejects.
+

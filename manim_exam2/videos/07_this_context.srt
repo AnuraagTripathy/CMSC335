@@ -1,0 +1,260 @@
+1
+00:00:00,000 --> 00:00:03,554
+Let's talk about this, the context object. There's almost
+
+2
+00:00:03,654 --> 00:00:06,631
+always an output puzzle about it in problem one.
+
+3
+00:00:06,731 --> 00:00:09,452
+The good news: three rules cover every case.
+
+4
+00:00:11,533 --> 00:00:15,099
+Rule one. For a regular function, this isn't decided when you
+
+5
+00:00:15,199 --> 00:00:18,225
+write the function. It's decided by how you call it.
+
+6
+00:00:18,300 --> 00:00:21,597
+Here f is called plainly, with nothing before a dot.
+
+7
+00:00:21,697 --> 00:00:25,322
+In strict mode, that means this is undefined. Without use
+
+8
+00:00:25,422 --> 00:00:28,328
+strict, it would be the window object instead.
+
+9
+00:00:28,700 --> 00:00:30,472
+So it prints undefined.
+
+10
+00:00:31,566 --> 00:00:35,870
+Exam trap. The exam code often writes this question-mark-dot
+
+11
+00:00:35,970 --> 00:00:39,981
+x. On undefined, that safely gives undefined. Plain this
+
+12
+00:00:40,081 --> 00:00:42,770
+dot x would throw a TypeError instead.
+
+13
+00:00:45,866 --> 00:00:49,616
+Rule two. When you call a function as a method, with an object
+
+14
+00:00:49,716 --> 00:00:53,590
+before the dot, this is that object. So car dot show gives blue.
+
+15
+00:00:53,658 --> 00:00:56,861
+But watch this. We copy the function into a variable
+
+16
+00:00:56,961 --> 00:00:59,846
+s, and call s with nothing before the dot. It's
+
+17
+00:00:59,946 --> 00:01:03,086
+the same function, but now it's a plain call again.
+
+18
+00:01:03,458 --> 00:01:06,581
+So we get blue, and then undefined. The object that
+
+19
+00:01:06,681 --> 00:01:10,246
+owns the function doesn't matter. Only the call site does.
+
+20
+00:01:13,325 --> 00:01:16,446
+Rule three. Arrow functions don't have their own this. They
+
+21
+00:01:16,546 --> 00:01:19,177
+use the this of the place where they were written.
+
+22
+00:01:19,250 --> 00:01:22,810
+This arrow was written at the top level of a classic script,
+
+23
+00:01:22,910 --> 00:01:26,470
+where this is window. And we set window dot carColor to red.
+
+24
+00:01:26,550 --> 00:01:28,869
+So calling it gives red. And even call,
+
+25
+00:01:28,969 --> 00:01:31,538
+with a different object, doesn't change it.
+
+26
+00:01:31,916 --> 00:01:33,688
+Red, and red again.
+
+27
+00:01:34,783 --> 00:01:37,959
+Exam trap. Call, apply, and bind cannot change an
+
+28
+00:01:38,059 --> 00:01:42,171
+arrow function's this. They're simply ignored for that purpose.
+
+29
+00:01:45,250 --> 00:01:47,703
+For regular functions, you can set this
+
+30
+00:01:47,803 --> 00:01:50,454
+explicitly. Here intro uses this dot name.
+
+31
+00:01:50,550 --> 00:01:53,655
+call runs the function now. The first argument becomes
+
+32
+00:01:53,755 --> 00:01:56,090
+this, and the rest are passed one by one.
+
+33
+00:01:56,183 --> 00:01:59,387
+apply also runs it now, but takes the arguments
+
+34
+00:01:59,487 --> 00:02:02,059
+as an array. A for apply, A for array.
+
+35
+00:02:02,150 --> 00:02:05,326
+bind doesn't run anything. It returns a new function with
+
+36
+00:02:05,426 --> 00:02:08,372
+this locked in, and here the first argument locked in
+
+37
+00:02:08,472 --> 00:02:10,786
+too. Then we call that new function later.
+
+38
+00:02:11,183 --> 00:02:12,955
+Here's the output.
+
+39
+00:02:16,050 --> 00:02:20,300
+Now the exam-style puzzle. We set window dot gameLocation to
+
+40
+00:02:20,400 --> 00:02:22,838
+U M D, and make an object with V A.
+
+41
+00:02:22,908 --> 00:02:25,283
+f is a regular function, and g is
+
+42
+00:02:25,383 --> 00:02:28,808
+an arrow, and both print this dot gameLocation.
+
+43
+00:02:28,908 --> 00:02:31,216
+f is a plain call in strict mode, so
+
+44
+00:02:31,316 --> 00:02:35,096
+this is undefined, and the optional chain gives undefined.
+
+45
+00:02:35,175 --> 00:02:37,745
+g is an arrow written at the top level,
+
+46
+00:02:37,845 --> 00:02:40,211
+so this is window, and that's U M D.
+
+47
+00:02:40,308 --> 00:02:44,456
+And g dot call with loc? Arrows ignore call. Still U M D.
+
+48
+00:02:44,841 --> 00:02:47,597
+undefined, U M D, U M D.
+
+49
+00:02:50,675 --> 00:02:55,855
+For contrast, f is a regular function, so call and bind do work on it.
+
+50
+00:02:56,241 --> 00:02:58,013
+Both print V A.
+
+51
+00:03:01,108 --> 00:03:04,875
+Practice question 1. What does this print? Assume it's a classic
+
+52
+00:03:04,975 --> 00:03:07,776
+script in a browser. Pause the video and try it.
+
+53
+00:03:16,075 --> 00:03:21,322
+Blue, red, undefined, blue. car dot show is a method call, so this is car.
+
+54
+00:03:21,422 --> 00:03:26,525
+car dot arrow is an arrow, and even inside an object literal it uses the
+
+55
+00:03:26,625 --> 00:03:31,583
+outer this, which is window, so red. s is a plain call in strict mode,
+
+56
+00:03:31,683 --> 00:03:35,919
+so undefined. And s dot call with car sets this back to car.
+
+57
+00:03:40,008 --> 00:03:44,228
+Practice question 2. What does this print? Pause the video and try it.
+
+58
+00:03:52,508 --> 00:03:57,772
+undefined, 10, 99, 10, 99. a is a plain strict call. b is an
+
+59
+00:03:57,872 --> 00:04:03,582
+arrow, so it uses window, 10. c is bound to game, 99. apply can't
+
+60
+00:04:03,682 --> 00:04:09,304
+change an arrow, so 10 again. And a dot call with game gives 99.
+
+61
+00:04:13,375 --> 00:04:17,487
+Recap. For a regular function, this is the object before the dot, and
+
+62
+00:04:17,587 --> 00:04:21,699
+a plain call in strict mode gives undefined. For an arrow, this comes
+
+63
+00:04:21,799 --> 00:04:25,666
+from where it was written, which at the top level is window. Call
+
+64
+00:04:25,766 --> 00:04:29,634
+and apply run the function now with a chosen this. Bind returns a
+
+65
+00:04:29,734 --> 00:04:32,931
+new function. And none of them change an arrow's this.
+

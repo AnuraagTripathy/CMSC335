@@ -1,0 +1,356 @@
+1
+00:00:00,000 --> 00:00:04,405
+Next up: custom types with the Default Pattern. This problem is worth
+
+2
+00:00:04,505 --> 00:00:07,800
+40 to 48 points, and the catch is that you can't use
+
+3
+00:00:07,900 --> 00:00:13,220
+class, extends, or super. You build everything from plain functions and prototypes.
+
+4
+00:00:15,300 --> 00:00:19,014
+Step one is the constructor. It's just a regular function, with
+
+5
+00:00:19,114 --> 00:00:22,949
+a capital letter by convention. The exam usually asks for default
+
+6
+00:00:23,049 --> 00:00:25,856
+values, so put them right in the parameter list.
+
+7
+00:00:25,933 --> 00:00:29,239
+When you call it with new, JavaScript creates a brand-new
+
+8
+00:00:29,339 --> 00:00:32,167
+empty object and makes this point to it. So these
+
+9
+00:00:32,267 --> 00:00:34,737
+two lines store the data on the new object.
+
+10
+00:00:34,833 --> 00:00:38,062
+Only data goes in the constructor. Methods go somewhere
+
+11
+00:00:38,162 --> 00:00:40,301
+else, and you'll see why in a second.
+
+12
+00:00:40,700 --> 00:00:44,794
+i1 passed nothing, so both defaults kick in. i2 passed only the
+
+13
+00:00:44,894 --> 00:00:49,456
+policy number, so the expiration date still falls back to its default.
+
+14
+00:00:52,533 --> 00:00:56,465
+Step two: methods go on the prototype. Why? Every object made by
+
+15
+00:00:56,565 --> 00:01:01,002
+Insurance shares the same prototype, so there's exactly one copy of each
+
+16
+00:01:01,102 --> 00:01:05,161
+method. If you wrote this dot getInfo equals a function inside the
+
+17
+00:01:05,261 --> 00:01:09,697
+constructor, every single object would get its own copy, and that wastes
+
+18
+00:01:09,797 --> 00:01:12,785
+memory. The exam likes to ask about exactly that.
+
+19
+00:01:12,866 --> 00:01:15,905
+There are two ways to do it. Option A replaces the
+
+20
+00:01:16,005 --> 00:01:20,110
+entire prototype with an object literal that holds all the methods.
+
+21
+00:01:20,200 --> 00:01:24,469
+Look at this line. Because we threw away the original prototype object, we
+
+22
+00:01:24,569 --> 00:01:28,308
+lost its constructor property, so we have to put it back by hand.
+
+23
+00:01:28,400 --> 00:01:30,926
+Option B adds one method at a time to the
+
+24
+00:01:31,026 --> 00:01:35,476
+existing prototype. Nothing gets replaced, so constructor stays intact.
+
+25
+00:01:35,866 --> 00:01:39,200
+Either way, any Insurance object can call getInfo, and
+
+26
+00:01:39,300 --> 00:01:41,934
+this refers to the object it was called on.
+
+27
+00:01:43,033 --> 00:01:45,697
+Exam trap. If you replace the prototype with
+
+28
+00:01:45,797 --> 00:01:48,901
+an object literal, the constructor property is gone
+
+29
+00:01:49,001 --> 00:01:52,293
+unless you write constructor colon Insurance yourself.
+
+30
+00:01:55,366 --> 00:02:00,024
+Let's prove both claims. Here A's prototype is replaced without a constructor
+
+31
+00:02:00,124 --> 00:02:03,916
+property. So when we ask x for its constructor, the lookup goes
+
+32
+00:02:04,016 --> 00:02:07,314
+past A's prototype all the way to Object dot prototype.
+
+33
+00:02:07,400 --> 00:02:10,520
+And here, Slow defines get inside the constructor,
+
+34
+00:02:10,620 --> 00:02:13,225
+so two Slow objects have two different get
+
+35
+00:02:13,325 --> 00:02:16,252
+functions. Insurance objects share one getInfo.
+
+36
+00:02:16,633 --> 00:02:19,182
+So x dot constructor is Object, not A. The
+
+37
+00:02:19,282 --> 00:02:22,526
+two Slow methods are different functions, and the two
+
+38
+00:02:22,626 --> 00:02:25,365
+Insurance methods are the very same function.
+
+39
+00:02:28,433 --> 00:02:31,866
+Step three, inheritance. The child constructor takes
+
+40
+00:02:31,966 --> 00:02:34,381
+the parent's parameters plus its own.
+
+41
+00:02:34,466 --> 00:02:38,348
+Insurance dot call, with this as the first argument, runs the
+
+42
+00:02:38,448 --> 00:02:42,917
+parent constructor on the new child object. That sets policyNumber and
+
+43
+00:02:43,017 --> 00:02:46,702
+exp. This is the default-pattern version of calling super.
+
+44
+00:02:46,800 --> 00:02:48,788
+Then the child sets its own field.
+
+45
+00:02:48,866 --> 00:02:52,340
+Next, link the prototypes. Object dot create makes a new
+
+46
+00:02:52,440 --> 00:02:56,233
+empty object whose proto is Insurance dot prototype, so every
+
+47
+00:02:56,333 --> 00:02:59,999
+car insurance object can find getInfo. Some answer keys use
+
+48
+00:03:00,099 --> 00:03:02,998
+new Insurance here instead, and that works too.
+
+49
+00:03:03,066 --> 00:03:07,070
+And finally, repair the constructor so it points at CarInsurance.
+
+50
+00:03:07,466 --> 00:03:09,561
+Exam trap. If you forget to reset the
+
+51
+00:03:09,661 --> 00:03:13,833
+constructor, CarInsurance objects report Insurance as their constructor,
+
+52
+00:03:13,933 --> 00:03:16,918
+because they inherit it from the parent's prototype.
+
+53
+00:03:20,000 --> 00:03:23,928
+Here are those three lines one more time, because you'll write them
+
+54
+00:03:24,028 --> 00:03:28,078
+on every exam. Call copies the parent's fields onto the child. Object
+
+55
+00:03:28,178 --> 00:03:32,648
+dot create links the prototypes so the child inherits methods. And resetting
+
+56
+00:03:32,748 --> 00:03:36,076
+constructor fixes the one thing Object dot create breaks.
+
+57
+00:03:38,166 --> 00:03:42,731
+Step four, overriding. Put a getInfo on the child's prototype. Lookup
+
+58
+00:03:42,831 --> 00:03:46,178
+finds this one first, so it wins over the parent's.
+
+59
+00:03:46,266 --> 00:03:49,578
+To reuse the parent's version, grab it from Insurance dot
+
+60
+00:03:49,678 --> 00:03:53,588
+prototype and call it with this. That's the default-pattern version
+
+61
+00:03:53,688 --> 00:03:56,222
+of super dot getInfo. Then append the plate.
+
+62
+00:03:56,300 --> 00:04:00,329
+One ordering rule: add child methods after the Object dot create
+
+63
+00:04:00,429 --> 00:04:05,104
+line. Otherwise, the assignment replaces the prototype and wipes them out.
+
+64
+00:04:05,200 --> 00:04:07,069
+Now let's test it, including a car
+
+65
+00:04:07,169 --> 00:04:09,444
+insurance made with only a policy number.
+
+66
+00:04:09,833 --> 00:04:12,775
+The override works, instanceof is true for both the
+
+67
+00:04:12,875 --> 00:04:15,937
+child and the parent, the constructor is correct, and
+
+68
+00:04:16,037 --> 00:04:19,098
+the missing expiration date fell back to the parent's
+
+69
+00:04:19,198 --> 00:04:22,141
+default, because undefined was passed through call.
+
+70
+00:04:25,233 --> 00:04:30,100
+Practice question 1. Using the Default Pattern, with no class keyword, define
+
+71
+00:04:30,200 --> 00:04:33,519
+Pet with a name and an age, both with defaults, and a
+
+72
+00:04:33,619 --> 00:04:38,035
+describe method on the prototype. Then define Dog, which adds a breed,
+
+73
+00:04:38,135 --> 00:04:42,679
+inherits from Pet, and overrides describe to add the breed while reusing
+
+74
+00:04:42,779 --> 00:04:45,389
+Pet's version. Pause the video and try it.
+
+75
+00:04:53,666 --> 00:04:57,475
+The Pet constructor stores the data, and describe goes on the
+
+76
+00:04:57,575 --> 00:05:00,936
+prototype. For Dog, call Pet with this to set name and
+
+77
+00:05:01,036 --> 00:05:05,037
+age, then set breed. Link the prototypes with Object dot create,
+
+78
+00:05:05,137 --> 00:05:09,394
+restore the constructor, and only then add the override, which calls
+
+79
+00:05:09,494 --> 00:05:12,406
+Pet's describe with this and appends the breed.
+
+80
+00:05:16,500 --> 00:05:20,720
+Practice question 2. What does this print? Pause the video and try it.
+
+81
+00:05:29,000 --> 00:05:32,815
+It prints playing Fight, then false. play works fine because it's
+
+82
+00:05:32,915 --> 00:05:37,032
+on the prototype. But the prototype was replaced without a constructor
+
+83
+00:05:37,132 --> 00:05:40,707
+property, so s dot constructor is found further up the chain,
+
+84
+00:05:40,807 --> 00:05:43,780
+on Object dot prototype, and it's Object, not Song.
+
+85
+00:05:47,866 --> 00:05:52,050
+Recap. Data goes in the constructor, with default parameters. Methods
+
+86
+00:05:52,150 --> 00:05:55,278
+go on the prototype, so there's one shared copy. For
+
+87
+00:05:55,378 --> 00:05:58,692
+a child, call the parent with this, link the prototypes
+
+88
+00:05:58,792 --> 00:06:02,665
+with Object dot create, restore the constructor, and override by
+
+89
+00:06:02,765 --> 00:06:05,334
+calling the parent's method with call this.
+

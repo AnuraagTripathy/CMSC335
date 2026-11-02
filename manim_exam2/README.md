@@ -3,23 +3,25 @@
 Exam 2: Thu Nov 5, 2026, 75 minutes, closed book, handwritten code, 200 pts.
 Videos are in `videos/`, ordered by exam weight (watch 01 first). Every video ends with
 1-2 exam-style practice questions: pause on the question, then check the answer.
+Every video is narrated (TA-style voiceover, voice: Microsoft `en-US-AndrewNeural` via edge-tts),
+with the animations and code-line highlights timed to the speech. Subtitles (`.srt`) sit next to each mp4.
 Every JS output shown on screen was checked with Node (`verify/`); browser `this`
 behavior was checked in a `vm` context where the global object acts as `window`.
 
 | # | Video | Length | Exam weight |
 |---|-------|--------|-------------|
-| 01 | [Form + JS validation](videos/01_form_validation.mp4) | 3:52 | 46-78 pts, the biggest problem |
-| 02 | [Default Pattern custom types + inheritance](videos/02_default_pattern.mp4) | 3:31 | 40-48 pts |
-| 03 | [Prototype diagram](videos/03_prototype_diagram.mp4) | 2:53 | 10-14 pts |
-| 04 | [class syntax + custom errors](videos/04_class_syntax.mp4) | 3:32 | 34-40 pts |
-| 05 | [Promises + fetch without await](videos/05_promises_fetch.mp4) | 4:07 | ~30 pts (last exam) |
-| 06 | [Event loop](videos/06_event_loop.mp4) | 3:09 | Problem 1 puzzles |
-| 07 | [this / context object](videos/07_this_context.mp4) | 3:06 | Problem 1 puzzle |
-| 08 | [Currying, closures, IIFE](videos/08_currying_closures_iife.mp4) | 2:49 | Problem 1, every exam |
-| 09 | [Short-circuit, typeof, instanceof](videos/09_short_circuit.mp4) | 3:26 | Problem 1 |
-| 10 | [Argument validation](videos/10_argument_validation.mp4) | 3:07 | Problem 1 |
-| 11 | [Array methods, destructuring, spread, JSON](videos/11_array_methods.mp4) | 3:34 | ~38 pts on 2022-23 exams |
-| 12 | [freeze / seal / preventExtensions](videos/12_freeze_seal.mp4) | 2:43 | Problem 1 |
+| 01 | [Form + JS validation](videos/01_form_validation.mp4) | 7:24 | 46-78 pts, the biggest problem |
+| 02 | [Default Pattern custom types + inheritance](videos/02_default_pattern.mp4) | 6:07 | 40-48 pts |
+| 03 | [Prototype diagram](videos/03_prototype_diagram.mp4) | 4:28 | 10-14 pts |
+| 04 | [class syntax + custom errors](videos/04_class_syntax.mp4) | 6:27 | 34-40 pts |
+| 05 | [Promises + fetch without await](videos/05_promises_fetch.mp4) | 6:25 | ~30 pts (last exam) |
+| 06 | [Event loop](videos/06_event_loop.mp4) | 4:48 | Problem 1 puzzles |
+| 07 | [this / context object](videos/07_this_context.mp4) | 4:35 | Problem 1 puzzle |
+| 08 | [Currying, closures, IIFE](videos/08_currying_closures_iife.mp4) | 4:28 | Problem 1, every exam |
+| 09 | [Short-circuit, typeof, instanceof](videos/09_short_circuit.mp4) | 5:45 | Problem 1 |
+| 10 | [Argument validation](videos/10_argument_validation.mp4) | 5:00 | Problem 1 |
+| 11 | [Array methods, destructuring, spread, JSON](videos/11_array_methods.mp4) | 5:59 | ~38 pts on 2022-23 exams |
+| 12 | [freeze / seal / preventExtensions](videos/12_freeze_seal.mp4) | 3:44 | Problem 1 |
 
 ## Summaries
 
@@ -74,8 +76,8 @@ freeze is shallow.
 ## Re-rendering
 
 ```
-pip install manim          # v0.22 used here; no LaTeX needed
-python render.py           # all scenes, or: python render.py 01 05
+pip install manim manim-voiceover edge-tts   # manim v0.22 used here; no LaTeX needed
+python render.py           # all scenes, or: python render.py 01 05  (needs internet for the TTS voice)
 node verify/05_06.js       # re-check the outputs shown on screen
 ```
 `render.py` renders at `-qm` (720p30) into `media/` (gitignored) and copies the mp4s into `videos/`.

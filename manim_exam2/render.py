@@ -17,4 +17,6 @@ for path in sorted(glob.glob(os.path.join(SCENES, "[0-9][0-9]_*.py"))):
         print(f"FAILED {stem}\n{r.stdout[-3000:]}\n{r.stderr[-3000:]}")
         continue
     shutil.copy(src, os.path.join(HERE, "videos", stem + ".mp4"))
+    if os.path.exists(src[:-4] + ".srt"):  # subtitles written by manim-voiceover
+        shutil.copy(src[:-4] + ".srt", os.path.join(HERE, "videos", stem + ".srt"))
     print(f"ok {stem}  {os.path.getsize(src) / 1e6:.1f} MB")

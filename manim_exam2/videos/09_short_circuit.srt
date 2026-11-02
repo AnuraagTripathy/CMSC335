@@ -1,0 +1,320 @@
+1
+00:00:00,000 --> 00:00:05,422
+Short-circuit operators, typeof, and instanceof. These are quick-fire points in problem
+
+2
+00:00:05,522 --> 00:00:08,913
+one, and the questions are designed to catch you on one
+
+3
+00:00:09,013 --> 00:00:12,404
+or two specific values. Let's learn exactly which ones.
+
+4
+00:00:14,500 --> 00:00:19,254
+Everything starts with truthy and falsy. There are only eight falsy
+
+5
+00:00:19,354 --> 00:00:24,109
+values: false, zero, negative zero, big int zero, the empty string,
+
+6
+00:00:24,209 --> 00:00:29,326
+null, undefined, and NaN. Memorize that list. Everything else is truthy,
+
+7
+00:00:29,426 --> 00:00:33,891
+including the string zero, the string false, a string with just
+
+8
+00:00:33,991 --> 00:00:37,152
+a space, an empty array, and an empty object.
+
+9
+00:00:37,233 --> 00:00:41,414
+Now the operators. AND returns the first falsy value it sees, or
+
+10
+00:00:41,514 --> 00:00:45,761
+the last value if they're all truthy. OR returns the first truthy
+
+11
+00:00:45,861 --> 00:00:49,975
+value, or the last value if none are. And the nullish operator,
+
+12
+00:00:50,075 --> 00:00:54,256
+double question mark, only moves to the right side when the left
+
+13
+00:00:54,356 --> 00:00:58,202
+side is null or undefined. The key idea: they return one of
+
+14
+00:00:58,302 --> 00:01:00,677
+the actual values, not true or false.
+
+15
+00:01:00,766 --> 00:01:04,665
+Exam trap. The string zero is a non-empty string, so
+
+16
+00:01:04,765 --> 00:01:08,586
+it's truthy. String zero OR Kate gives string zero.
+
+17
+00:01:11,666 --> 00:01:14,158
+Try each one yourself before I reveal it.
+
+18
+00:01:14,233 --> 00:01:19,941
+Mike is truthy, so AND keeps going, and returns the last value, 14.5.
+
+19
+00:01:20,033 --> 00:01:24,301
+String zero is truthy, so OR stops right there and returns it.
+
+20
+00:01:24,400 --> 00:01:28,548
+false is falsy, so AND stops immediately and returns false.
+
+21
+00:01:28,633 --> 00:01:32,589
+Zero is falsy, so OR moves on, and returns John.
+
+22
+00:01:32,666 --> 00:01:35,398
+null is falsy, so AND returns null.
+
+23
+00:01:35,466 --> 00:01:38,440
+One is truthy, then the empty string is falsy,
+
+24
+00:01:38,540 --> 00:01:41,246
+so AND stops and returns the empty string.
+
+25
+00:01:41,333 --> 00:01:45,457
+All three are falsy, so OR returns the last one, null.
+
+26
+00:01:48,833 --> 00:01:52,021
+Now compare nullish with OR, side by side.
+
+27
+00:01:52,100 --> 00:01:56,320
+Zero isn't null or undefined, so nullish keeps the zero.
+
+28
+00:01:56,400 --> 00:01:59,588
+But OR treats zero as falsy, and gives John.
+
+29
+00:01:59,666 --> 00:02:02,422
+Same with the empty string. Nullish keeps it.
+
+30
+00:02:02,500 --> 00:02:04,272
+OR replaces it with default.
+
+31
+00:02:04,366 --> 00:02:07,866
+null is exactly what nullish is for, so we get x.
+
+32
+00:02:07,966 --> 00:02:11,248
+undefined falls through to zero, and zero is
+
+33
+00:02:11,348 --> 00:02:13,938
+kept, so the answer is zero, not 7.
+
+34
+00:02:15,333 --> 00:02:19,510
+Exam trap. Nullish only falls through on null or undefined,
+
+35
+00:02:19,610 --> 00:02:22,771
+so zero and the empty string are kept. Use it
+
+36
+00:02:22,871 --> 00:02:25,961
+when zero is a valid value, like a quantity.
+
+37
+00:02:29,033 --> 00:02:33,033
+Optional chaining. Normally, reading a property of null throws a
+
+38
+00:02:33,133 --> 00:02:37,453
+TypeError. With question-mark-dot, it just stops and gives undefined.
+
+39
+00:02:37,533 --> 00:02:40,673
+When everything exists, it works like a normal dot.
+
+40
+00:02:40,766 --> 00:02:44,578
+prof dot phone is undefined, so the chain stops before home.
+
+41
+00:02:44,666 --> 00:02:46,672
+And it works for method calls too.
+
+42
+00:02:46,772 --> 00:02:49,150
+greet doesn't exist, so it isn't called.
+
+43
+00:02:49,533 --> 00:02:55,985
+undefined, 2 0 7 4 2, undefined, and undefined. No errors anywhere.
+
+44
+00:02:59,066 --> 00:03:02,758
+typeof always returns a string. Here are the ones people miss.
+
+45
+00:03:02,833 --> 00:03:05,734
+typeof null is object. That's a famous old
+
+46
+00:03:05,834 --> 00:03:09,165
+bug in JavaScript, and a favorite exam question.
+
+47
+00:03:09,233 --> 00:03:12,325
+Arrays are objects, so typeof gives object.
+
+48
+00:03:12,400 --> 00:03:14,940
+Functions get their own answer: function.
+
+49
+00:03:15,033 --> 00:03:16,997
+A class is really a function too.
+
+50
+00:03:17,066 --> 00:03:20,134
+NaN means not a number, but its type is number.
+
+51
+00:03:20,233 --> 00:03:22,917
+undefined gives the string undefined.
+
+52
+00:03:23,000 --> 00:03:26,356
+And quotes make it a string, even if it looks like a number.
+
+53
+00:03:27,733 --> 00:03:31,590
+Exam trap. typeof null is object, and typeof NaN is
+
+54
+00:03:31,690 --> 00:03:35,625
+number. To test for an array, use Array dot isArray.
+
+55
+00:03:38,700 --> 00:03:41,689
+instanceof asks one question: is this constructor's
+
+56
+00:03:41,789 --> 00:03:44,840
+prototype somewhere on the object's prototype chain?
+
+57
+00:03:44,933 --> 00:03:48,433
+An array's chain includes Array dot prototype, so true.
+
+58
+00:03:48,533 --> 00:03:50,844
+And that chain continues to Object dot
+
+59
+00:03:50,944 --> 00:03:53,065
+prototype, so this is true as well.
+
+60
+00:03:53,133 --> 00:03:55,613
+A string literal is a primitive, not
+
+61
+00:03:55,713 --> 00:03:58,265
+an object, so instanceof gives false.
+
+62
+00:03:58,333 --> 00:04:01,089
+But new String makes a wrapper object, so true.
+
+63
+00:04:01,166 --> 00:04:04,234
+null has no prototype chain at all, so false.
+
+64
+00:04:07,633 --> 00:04:10,213
+Practice question 1. What is each of these
+
+65
+00:04:10,313 --> 00:04:12,765
+five values? Pause the video and try it.
+
+66
+00:04:21,033 --> 00:04:26,579
+a1 is 10, because zero is falsy. a2 is zero, because nullish keeps
+
+67
+00:04:26,679 --> 00:04:32,482
+zero. a3 is yes, because the string false is truthy. a4 is undefined,
+
+68
+00:04:32,582 --> 00:04:38,128
+because neither is truthy, so OR returns the last one. And a5: qty
+
+69
+00:04:38,228 --> 00:04:42,149
+AND x stops at zero, and typeof zero is number.
+
+70
+00:04:46,233 --> 00:04:50,453
+Practice question 2. What does this print? Pause the video and try it.
+
+71
+00:04:58,733 --> 00:05:02,772
+A single space, NaN, Ann, and an empty array. The space
+
+72
+00:05:02,872 --> 00:05:06,911
+is a non-empty string, so it's truthy. NaN is falsy, so
+
+73
+00:05:07,011 --> 00:05:10,824
+AND returns it. Ann is truthy. And an empty array is
+
+74
+00:05:10,924 --> 00:05:14,737
+truthy, so OR returns the array, not the word empty.
+
+75
+00:05:18,833 --> 00:05:22,707
+Recap. AND returns the first falsy value, or the last one.
+
+76
+00:05:22,807 --> 00:05:26,750
+OR returns the first truthy value, or the last one. Nullish
+
+77
+00:05:26,850 --> 00:05:31,821
+only falls through on null or undefined. Optional chaining gives undefined
+
+78
+00:05:31,921 --> 00:05:36,069
+instead of an error. Know the eight falsy values, and remember
+
+79
+00:05:36,169 --> 00:05:40,249
+that string zero and empty arrays are truthy. And typeof null
+
+80
+00:05:40,349 --> 00:05:42,853
+is object, while typeof NaN is number.
+
